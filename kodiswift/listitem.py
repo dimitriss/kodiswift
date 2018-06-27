@@ -254,6 +254,9 @@ class ListItem(object):
         """Sets the listitem's info"""
         return self._listitem.setInfo(info_type, info_labels)
 
+    def set_cast(self, cast):
+        return self._listitem.setCast(cast)
+
     def get_property(self, key):
         """Returns the property associated with the given key"""
         return self._listitem.getProperty(key)
@@ -280,7 +283,7 @@ class ListItem(object):
     def from_dict(cls, label=None, label2=None, icon=None, thumbnail=None,
                   path=None, selected=None, info=None, properties=None,
                   context_menu=None, replace_context_menu=False,
-                  is_playable=None, info_type='video', stream_info=None,
+                  is_playable=None, info_type='video', stream_info=None, cast=None,
                   **kwargs):
         """A ListItem constructor for setting a lot of properties not
         available in the regular __init__ method. Useful to collect all
@@ -300,6 +303,9 @@ class ListItem(object):
         if selected is not None:
             listitem.selected = selected
 
+        if cast:
+            listitem.set_cast(cast)
+
         if info:
             listitem.set_info(info_type, info)
 
@@ -317,6 +323,8 @@ class ListItem(object):
         if stream_info:
             for stream_type, stream_values in stream_info.items():
                 listitem.add_stream_info(stream_type, stream_values)
+
+
 
         if context_menu:
             listitem.add_context_menu_items(context_menu, replace_context_menu)
